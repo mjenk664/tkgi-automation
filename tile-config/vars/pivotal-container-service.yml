@@ -1,0 +1,81 @@
+network_name: tkgi_network
+service_network_name: tkgi_service_network
+singleton_availability_zone: northamerica-northeast1-a
+az2_name: northamerica-northeast1-c
+az3_name: northamerica-northeast1-b
+
+pks_api_hostname: api.pks.example.com
+
+cloud_provider_gcp_project_id: gcp-project-id
+cloud_provider_gcp_network: gcp-vpc-id
+cloud_provider_gcp_subnetwork: gcp-subnet-id
+cloud_provider_gcp_master_service_account: gcp-master-service-account
+cloud_provider_gcp_worker_service_account: gcp-worker-service-account
+
+network_selector_flannel_pod_network_cidr: 10.200.0.0/16
+network_selector_flannel_service_cluster_cidr: 10.100.200.0/24
+
+bosh-metric-sink-node-exporter-master: true
+node_exporter_deploy: true
+log_sink_resources_deploy: true
+metric_sink_resources_deploy: true
+bosh-metric-sink-kubelet: true
+
+oidc_selector_enabled_groups_claim: roles
+oidc_selector_enabled_groups_prefix: 'oidc:'
+oidc_selector_enabled_username_claim: user_name
+oidc_selector_enabled_username_prefix: 'oidc:'
+
+uaa_ldap_external_groups_whitelist: '*'
+uaa_ldap_group_search_base: OU=Groups,DC=ngco,DC=com
+uaa_ldap_group_search_filter: member={0}
+uaa_ldap_ldap_referrals: follow
+uaa_ldap_mail_attribute_name: mail
+uaa_ldap_search_base: OU=Managed Users,DC=ngco,DC=com
+uaa_ldap_search_filter: sAMAccountName={0}
+uaa_ldap_credentials_identity: CN=cn_name,OU=myou,OU=myou,DC=mydc,DC=com
+uaa_ldap_url: ldap://my-ldap.com
+
+plan1_selector_active_name: shared
+plan1_selector_active_description: "Deploys 1 Master Node (2 CPUs, 4 GB Ram, 32 GB Disk, 10 GB Persistent Disk) / 3 Worker Nodes (2 CPUs, 4 GB Ram, 32 GB Disk, 50 GB Persistent Disk"
+plan1_selector_active_master_instances: 1
+plan1_selector_active_worker_instances: 3
+plan1_selector_active_master_vm_type: medium.disk
+plan1_selector_active_master_persistent_disk_type: "204800"
+plan1_selector_active_worker_vm_type: pks-custom
+plan1_selector_active_worker_persistent_disk_type: "204800"
+plan1_selector_active_master_az_placement:
+  - northamerica-northeast1-c
+plan1_selector_active_worker_az_placement:
+  - northamerica-northeast1-a
+  - northamerica-northeast1-b
+  - northamerica-northeast1-c
+plan1_selector_active_kubelet_drain_force: true
+plan1_selector_active_kubelet_drain_force_node: false
+plan1_selector_active_kubelet_drain_ignore_daemonsets: true
+plan1_selector_active_allow_privileged_containers: true
+
+pivotal-container-service_instance_type: automatic
+pivotal-container-service_persistent_disk_size: "204800"
+pivotal-container-service_additional_vm_extensions:
+  - my-lb-vm-extension
+  - my-network-tag
+
+telegraf_selector_enabled_bosh-metric-sink-etcd: "true"
+telegraf_selector_enabled_bosh-metric-sink-kube-apiserver: "true"
+telegraf_selector_enabled_bosh-metric-sink-kube-controller-manager: "true"
+telegraf_selector_enabled_bosh-metric-sink-kubelet: "true"
+telegraf_selector_enabled_bosh-metric-sink-node-exporter-master: "true"
+telegraf_selector_enabled_bosh-metric-sink-node-exporter-pks-api: "true"
+telegraf_selector_enabled_bosh-metric-sink-node-exporter-worker: "true"
+telegraf_selector_enabled_bosh-metric-sink-outputs: |
+  # Publish all metrics to /metrics for Prometheus to scrape
+  [[outputs.prometheus_client]]
+    ## Address to listen on.
+    listen = ":9101"
+
+pivotal-container-service_internet_connected: false
+pks-db_internet_connected: false
+
+smoke-tests_post_deploy_state: false
+upgrade-all-service-instances_post_deploy_state: true

@@ -1,0 +1,15 @@
+---
+platform: linux
+
+inputs:
+  - name: config
+
+params:
+  UAA_TARGET:
+  UAA_ADMIN_CLIENT_ID:
+  UAA_ADMIN_CLIENT_SECRET:
+  UAA_SCOPE:
+  AD_GROUP_DN:
+
+run:
+  path: config/ci/tasks/map-ad-group-uaa/task.sh
