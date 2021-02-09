@@ -1,13 +1,13 @@
-#!/bin/bash -e
+i#!/bin/bash -e
 : ${PIVNET_TOKEN?"Need to set PIVNET_TOKEN"}
-#set -x
+#set -x 
 
 
 foundation=$1
 product=$2
 
-FOUNDATION=$foundation
-OPS_DIR=$foundation/operations
+FOUNDATION=foundations/$foundation
+OPS_DIR=foundations/$foundation/operations
 
 if [ ! $# -eq 2 ]; then
   echo "Must supply environment name and product slug as appear in Ops Manger as args"
@@ -81,3 +81,4 @@ fi
 if [ -f ${wrkdir}/resource-vars.yml ]; then
   cat ${wrkdir}/resource-vars.yml >> ${FOUNDATION}/config/defaults/${product}.yml
 fi
+
