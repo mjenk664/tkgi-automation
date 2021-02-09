@@ -1,4 +1,4 @@
-i#!/bin/bash -e
+#!/bin/bash -e
 : ${PIVNET_TOKEN?"Need to set PIVNET_TOKEN"}
 #set -x 
 
