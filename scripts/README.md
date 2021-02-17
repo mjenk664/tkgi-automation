@@ -65,8 +65,8 @@ The script will generate the configs in the following directories:
 - `foundations/{environment}/templates/{product}.yml`
 
 Do not modify the above two files directly. Instead, you will overwrite these values in the following product's `vars` and `secrets` files:
-- `foundations/{environment}/config/vars/{product}.yml`
-- `foundations/{environment}/config/secrets/{product}.yml`
+- `foundations/{environment}/vars/{product}.yml`
+- `foundations/{environment}/secrets/{product}.yml`
 
 
 The script will also generate a `product-operations` (i.e., cf-operations) file in the environment's `foundations/{environment}/operations` directory.
