@@ -1,3 +1,5 @@
+---
+# TODO: Update all resources with correct paths
 get-platform-automation: &get-platform-automation
   - get: platform-automation-image
     resource: platform-automation
