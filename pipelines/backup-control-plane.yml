@@ -1,0 +1,113 @@
+---
+# TODO: Update all resources with correct paths
+get-platform-automation: &get-platform-automation
+  - get: platform-automation-image
+    resource: platform-automation
+    params:
+      globs: ["image-*.tgz"]
+      unpack: true
+  - get: platform-automation-tasks
+    resource: platform-automation
+    params:
+      globs: ["tasks-*.zip"]
+      unpack: true
+
+prepare-tasks-with-secrets: &prepare-tasks-with-secrets
+  image: platform-automation-image
+  file: platform-automation-tasks/tasks/prepare-tasks-with-secrets.yml
+  input_mapping:
+    tasks: platform-automation-tasks
+    vars: config
+  params:
+    CONFIG_PATHS: config/foundations/config config/foundations/((foundation))/config
+    VARS_PATHS: vars/foundations/((foundation))/vars
+  output_mapping:
+    tasks: platform-automation-tasks
+
+resource_types:
+- name: pivnet
+  type: docker-image
+  source:
+    repository: pivotalcf/pivnet-resource
+    tag: latest-final
+
+resources:
+- name: platform-automation
+  type: pivnet
+    api_token: ((pivnet_api_token))
+    product_slug: platform-automation
+    product_version: ((platform_automation_version))
+
+- name: config
+  type: git
+  source:
+    uri: git@githbub.com
+    private_key: ((git_key.private_key))
+    branch: develop
+
+- name: backup-state-location
+  type: s3
+  source:
+    access_key_id: ((s3_access_key_id))
+    secret_access_key: ((s3_secret_access_key))
+    bucket: ((s3_backup_bucket))
+
+- name: schedule
+  type: time
+  source:
+    location: America/New_York
+    start: 12:00 AM
+    stop: 2:00 AM
+    days: [Sunday]
+
+jobs:
+# Outputs a *.tgz of the entire backup of BOSH
+# The timestamp is included in the filename
+- name: backup-bosh-director
+  serial: true
+  plan:
+  - in_parallel:
+    <<: *get-platform-automation
+    - get: config
+    - get: backup-state-location
+    - get: schedule
+      trigger: true
+
+    - task: prepare-task-with-secrets
+    <<: *prepare-tasks-with-secrets
+
+    - task: backup-director
+      image: platform-automation-image
+      file: platform-automation-tasks/tasks/backup-director.yml
+      params:
+        ENV_FILE: foundations/((env))/env.yml
+        OPSMAN_SSH_PRIVATE_KEY: ((opsman_ssh_key))
+
+    - put: backup-state-location
+      params:
+        file: bosh-director/((env))/*.tgz
+
+# Outputs a *.tgz of the entire backup of Concourse
+# The timestamp is included in the filename
+- name: backup-concourse
+  serial: true
+  plan:
+    <<: *get-platform-automation
+    - get: config
+    - get: backup-state-location
+    - get: schedule
+
+    - task: prepare-task-with-secrets
+    <<: *prepare-tasks-with-secrets
+
+    - task: backup-concourse
+      image: platform-automation-image
+      file: platform-automation-tasks/tasks/backup-product.yml
+      params:
+        ENV_FILE: foundations/((env))/env.yml
+        OPSMAN_SSH_PRIVATE_KEY: ((opsman_ssh_key))
+        PRODUCT_NAME: concourse
+
+    - put: backup-state-location
+      params:
+        file: concourse/((env))/*.tgz
