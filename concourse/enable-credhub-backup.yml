@@ -1,0 +1,13 @@
+- type: replace
+  path: /instance_groups/name=db/jobs/name=bbr-credhubdb?
+  value:
+    name: bbr-credhubdb
+    release: credhub
+    properties:
+      credhub:
+        data_storage:
+          type: postgres
+          username: credhub
+          database: credhub
+          password: ((credhub-db-password))
+      release_level_backup: true
