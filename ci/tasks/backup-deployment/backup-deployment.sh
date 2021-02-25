@@ -8,7 +8,7 @@ if [ -z "${DEPLOYMENT_NAME}" ]; then
 fi
 
 # shellcheck source=./setup-bosh-env.sh
-source ./config/tasks/setup-bosh-env.sh
+source ./config/ci/tasks/setup-bosh-env.sh
 
 set -x
 
