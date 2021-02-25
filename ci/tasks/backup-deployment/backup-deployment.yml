@@ -2,7 +2,7 @@
 platform: linux
 
 inputs:
-  - name: platform-automation-tasks
+  - name: config
   - name: env # contains the env file with target OpsMan Information
 outputs:
   - name: backup
