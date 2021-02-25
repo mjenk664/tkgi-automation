@@ -31,4 +31,4 @@ params:
   # - This is the username used when tunneling through the Ops Manager VM
 
 run:
-  path: config/ci/tasks/map-ad-group-uaa/backup-deployment.sh
+  path: config/ci/tasks/backup-deployment/backup-deployment.sh
