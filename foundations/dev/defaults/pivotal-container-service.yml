@@ -31,6 +31,12 @@ smoke-tests_post_deploy_state: default
 upgrade-all-service-instances_post_deploy_state: default
 wavefront-alert-creation_post_deploy_state: default
 wavefront-alert-deletion_pre_delete_state: default
+resource-var-pivotal-container-service_instance_type: automatic
+resource-var-pivotal-container-service_max_in_flight: default
+resource-var-pivotal-container-service_persistent_disk_size: automatic
+resource-var-pks-db_instance_type: automatic
+resource-var-pks-db_max_in_flight: default
+resource-var-pks-db_persistent_disk_size: automatic
 pivotal-container-service_instance_type: automatic
 pivotal-container-service_max_in_flight: default
 pivotal-container-service_persistent_disk_size: automatic

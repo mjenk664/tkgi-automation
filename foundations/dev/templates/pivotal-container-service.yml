@@ -54,6 +54,11 @@ product-properties:
   .properties.node_exporter_deploy:
     value: ((node_exporter_deploy))
   .properties.oidc_selector:
+    value: disabled
+  .properties.pks-vrli:
+    value: disabled
+  .properties.pks-vrops:
+    value: disabled
     selected_option: enabled
     value: enabled
   .properties.oidc_selector.enabled.groups_claim:
@@ -73,6 +78,8 @@ product-properties:
     value: ((pks_api_hostname))
   .properties.plan1_selector:
     value: Plan Active
+  .properties.plan1_selector.active.description:
+    value: ((plan1_selector_active_description))
   .properties.plan1_selector.active.allow_privileged_containers:
     value: ((plan1_selector_active_allow_privileged_containers))
   .properties.plan1_selector.active.description:
@@ -134,6 +141,9 @@ product-properties:
   .properties.syslog_selector:
     value: disabled
   .properties.telegraf_selector:
+    value: disabled
+  .properties.telemetry_selector:
+    value: enabled
     selected_option: enabled
     value: enabled
   .properties.telegraf_selector.enabled.bosh-metric-sink-etcd:
@@ -168,6 +178,7 @@ product-properties:
   .properties.tmc:
     value: disabled
   .properties.uaa:
+    value: internal
     selected_option: ldap
     value: ldap
   .properties.uaa.ldap.credentials:
@@ -204,6 +215,17 @@ product-properties:
     value: ((worker_max_in_flight))
 resource-config:
   pivotal-container-service:
+    instance_type:
+      id: ((resource-var-pivotal-container-service_instance_type))
+    max_in_flight: ((resource-var-pivotal-container-service_max_in_flight))
+    persistent_disk:
+      size_mb: ((resource-var-pivotal-container-service_persistent_disk_size))
+  pks-db:
+    instance_type:
+      id: ((resource-var-pks-db_instance_type))
+    max_in_flight: ((resource-var-pks-db_max_in_flight))
+    persistent_disk:
+      size_mb: ((resource-var-pks-db_persistent_disk_size))
     additional_vm_extensions: ((pivotal-container-service_additional_vm_extensions))
     instance_type:
       id: ((pivotal-container-service_instance_type))
