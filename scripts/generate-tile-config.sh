@@ -20,7 +20,7 @@ fi
 echo "Generating configuration for product $product"
 printf "\n"
 
-versionfile="${FOUNDATION}/config/versions/$product.yml"
+versionfile="${FOUNDATION}/versions/$product.yml"
 if [ ! -f ${versionfile} ]; then
   echo "Could not generate configs for $product. Must create ${versionfile} file first."
   printf "\n"
@@ -44,6 +44,7 @@ if [ ! -f ${wrkdir}/product.yml ]; then
   exit 1
 fi
 
+mkdir -p ${OPS_DIR}
 ops_files="${OPS_DIR}/${product}-operations"
 touch ${ops_files}
 
@@ -64,21 +65,21 @@ do
      ops_files_args+=("-o ${wrkdir}/${var}")
   fi
 done < "$ops_files"
-bosh int ${wrkdir}/product.yml ${ops_files_args[@]} > ${FOUNDATION}/config/templates/${product}.yml
+bosh int ${wrkdir}/product.yml ${ops_files_args[@]} > ${FOUNDATION}/templates/${product}.yml
 
-mkdir -p ${FOUNDATION}/config/defaults
-rm -rf ${FOUNDATION}/config/defaults/${product}.yml
-touch ${FOUNDATION}/config/defaults/${product}.yml
+mkdir -p ${FOUNDATION}/defaults
+rm -rf ${FOUNDATION}/defaults/${product}.yml
+touch ${FOUNDATION}/defaults/${product}.yml
 
 if [ -f ${wrkdir}/default-vars.yml ]; then
-  cat ${wrkdir}/default-vars.yml >> ${FOUNDATION}/config/defaults/${product}.yml
+  cat ${wrkdir}/default-vars.yml >> ${FOUNDATION}/defaults/${product}.yml
 fi
 
 if [ -f ${wrkdir}/errand-vars.yml ]; then
-  cat ${wrkdir}/errand-vars.yml >> ${FOUNDATION}/config/defaults/${product}.yml
+  cat ${wrkdir}/errand-vars.yml >> ${FOUNDATION}/defaults/${product}.yml
 fi
 
 if [ -f ${wrkdir}/resource-vars.yml ]; then
-  cat ${wrkdir}/resource-vars.yml >> ${FOUNDATION}/config/defaults/${product}.yml
+  cat ${wrkdir}/resource-vars.yml >> ${FOUNDATION}/defaults/${product}.yml
 fi
 
