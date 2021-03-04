@@ -15,9 +15,7 @@ network-properties:
   network:
     name: ((network_name))
   other_availability_zones:
-    - name: ((singleton_availability_zone))
-    - name: ((az2_name))
-    - name: ((az3_name))
+  - name: ((singleton_availability_zone))
   service_network:
     name: ((service_network_name))
   singleton_availability_zone:
@@ -28,19 +26,6 @@ product-properties:
     value:
       cert_pem: ((pivotal-container-service_pks_tls_certificate))
       private_key_pem: ((pivotal-container-service_pks_tls_privatekey))
-  .properties.cloud_provider:
-    selected_option: gcp
-    value: GCP
-  .properties.cloud_provider.gcp.master_service_account:
-    value: ((cloud_provider_gcp_master_service_account))
-  .properties.cloud_provider.gcp.network:
-    value: ((cloud_provider_gcp_network))
-  .properties.cloud_provider.gcp.project_id:
-    value: ((cloud_provider_gcp_project_id))
-  .properties.cloud_provider.gcp.subnetwork:
-    value: ((cloud_provider_gcp_subnetwork))
-  .properties.cloud_provider.gcp.worker_service_account:
-    value: ((cloud_provider_gcp_worker_service_account))
   .properties.log_sink_resources_deploy:
     value: ((log_sink_resources_deploy))
   .properties.metric_sink_resources_deploy:
@@ -59,47 +44,16 @@ product-properties:
     value: disabled
   .properties.pks-vrops:
     value: disabled
-    selected_option: enabled
-    value: enabled
-  .properties.oidc_selector.enabled.groups_claim:
-    value: ((oidc_selector_enabled_groups_claim))
-  .properties.oidc_selector.enabled.groups_prefix:
-    value: ((oidc_selector_enabled_groups_prefix))
-  .properties.oidc_selector.enabled.username_claim:
-    value: ((oidc_selector_enabled_username_claim))
-  .properties.oidc_selector.enabled.username_prefix:
-    value: ((oidc_selector_enabled_username_prefix))
-  .properties.pks-vrli:
-    value: disabled
-  .properties.pks-vrops:
-    selected_option: enabled
-    value: enabled
   .properties.pks_api_hostname:
     value: ((pks_api_hostname))
   .properties.plan1_selector:
     value: Plan Active
   .properties.plan1_selector.active.description:
     value: ((plan1_selector_active_description))
-  .properties.plan1_selector.active.allow_privileged_containers:
-    value: ((plan1_selector_active_allow_privileged_containers))
-  .properties.plan1_selector.active.description:
-    value: ((plan1_selector_active_description))
-  .properties.plan1_selector.active.kubelet_drain_delete_local_data:
-    value: ((plan1_selector_active_kubelet_drain_delete_local_data))
-  .properties.plan1_selector.active.kubelet_drain_force:
-    value: ((plan1_selector_active_kubelet_drain_force))
-  .properties.plan1_selector.active.kubelet_drain_force_node:
-    value: ((plan1_selector_active_kubelet_drain_force_node))
-  .properties.plan1_selector.active.kubelet_drain_ignore_daemonsets:
-    value: ((plan1_selector_active_kubelet_drain_ignore_daemonsets))
   .properties.plan1_selector.active.master_az_placement:
     value: ((plan1_selector_active_master_az_placement))
   .properties.plan1_selector.active.master_instances:
     value: ((plan1_selector_active_master_instances))
-  .properties.plan1_selector.active.master_persistent_disk_type:
-    value: ((plan1_selector_active_master_persistent_disk_type))
-  .properties.plan1_selector.active.master_vm_type:
-    value: ((plan1_selector_active_master_vm_type))
   .properties.plan1_selector.active.max_worker_instances:
     value: ((plan1_selector_active_max_worker_instances))
   .properties.plan1_selector.active.name:
@@ -108,10 +62,6 @@ product-properties:
     value: ((plan1_selector_active_worker_az_placement))
   .properties.plan1_selector.active.worker_instances:
     value: ((plan1_selector_active_worker_instances))
-  .properties.plan1_selector.active.worker_persistent_disk_type:
-    value: ((plan1_selector_active_worker_persistent_disk_type))
-  .properties.plan1_selector.active.worker_vm_type:
-    value: ((plan1_selector_active_worker_vm_type))
   .properties.plan2_selector:
     value: Plan Inactive
   .properties.plan3_selector:
@@ -144,31 +94,6 @@ product-properties:
     value: disabled
   .properties.telemetry_selector:
     value: enabled
-    selected_option: enabled
-    value: enabled
-  .properties.telegraf_selector.enabled.bosh-metric-sink-etcd:
-    value: ((telegraf_selector_enabled_bosh-metric-sink-etcd))
-  .properties.telegraf_selector.enabled.bosh-metric-sink-kube-apiserver:
-    value: ((telegraf_selector_enabled_bosh-metric-sink-kube-apiserver))
-  .properties.telegraf_selector.enabled.bosh-metric-sink-kube-controller-manager:
-    value: ((telegraf_selector_enabled_bosh-metric-sink-kube-controller-manager))
-  .properties.telegraf_selector.enabled.bosh-metric-sink-kubelet:
-    value: ((telegraf_selector_enabled_bosh-metric-sink-kubelet))
-  .properties.telegraf_selector.enabled.bosh-metric-sink-node-exporter-master:
-    value: ((telegraf_selector_enabled_bosh-metric-sink-node-exporter-master))
-  .properties.telegraf_selector.enabled.bosh-metric-sink-node-exporter-pks-api:
-    value: ((telegraf_selector_enabled_bosh-metric-sink-node-exporter-pks-api))
-  .properties.telegraf_selector.enabled.bosh-metric-sink-node-exporter-worker:
-    value: ((telegraf_selector_enabled_bosh-metric-sink-node-exporter-worker))
-  .properties.telegraf_selector.enabled.bosh-metric-sink-outputs:
-    value: ((telegraf_selector_enabled_bosh-metric-sink-outputs))
-  .properties.telemetry_installation_purpose_selector:
-    selected_option: dev_or_pre_prod
-    value: dev_or_pre_prod
-  .properties.telemetry_selector:
-    value: enabled
-  .properties.telemetry_selector.enabled.billing_polling_interval:
-    value: ((telemetry_selector_enabled_billing_polling_interval))
   .properties.telemetry_selector.enabled.environment_provider:
     value: ((telemetry_selector_enabled_environment_provider))
   .properties.telemetry_selector.enabled.telemetry_polling_interval:
@@ -179,28 +104,6 @@ product-properties:
     value: disabled
   .properties.uaa:
     value: internal
-    selected_option: ldap
-    value: ldap
-  .properties.uaa.ldap.credentials:
-    value:
-      identity: ((uaa_ldap_credentials_identity))
-      password: ((uaa_ldap_credentials_password))
-  .properties.uaa.ldap.external_groups_whitelist:
-    value: ((uaa_ldap_external_groups_whitelist))
-  .properties.uaa.ldap.group_search_base:
-    value: ((uaa_ldap_group_search_base))
-  .properties.uaa.ldap.group_search_filter:
-    value: ((uaa_ldap_group_search_filter))
-  .properties.uaa.ldap.ldap_referrals:
-    value: ((uaa_ldap_ldap_referrals))
-  .properties.uaa.ldap.mail_attribute_name:
-    value: ((uaa_ldap_mail_attribute_name))
-  .properties.uaa.ldap.search_base:
-    value: ((uaa_ldap_search_base))
-  .properties.uaa.ldap.search_filter:
-    value: ((uaa_ldap_search_filter))
-  .properties.uaa.ldap.url:
-    value: ((uaa_ldap_url))
   .properties.uaa_pks_cli_access_token_lifetime:
     value: ((uaa_pks_cli_access_token_lifetime))
   .properties.uaa_pks_cli_refresh_token_lifetime:
@@ -226,17 +129,3 @@ resource-config:
     max_in_flight: ((resource-var-pks-db_max_in_flight))
     persistent_disk:
       size_mb: ((resource-var-pks-db_persistent_disk_size))
-    additional_vm_extensions: ((pivotal-container-service_additional_vm_extensions))
-    instance_type:
-      id: ((pivotal-container-service_instance_type))
-    internet_connected: ((pivotal-container-service_internet_connected))
-    max_in_flight: ((pivotal-container-service_max_in_flight))
-    persistent_disk:
-      size_mb: ((pivotal-container-service_persistent_disk_size))
-  pks-db:
-    instance_type:
-      id: ((pks-db_instance_type))
-    internet_connected: ((pks-db_internet_connected))
-    max_in_flight: ((pks-db_max_in_flight))
-    persistent_disk:
-      size_mb: ((pks-db_persistent_disk_size))
