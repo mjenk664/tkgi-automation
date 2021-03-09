@@ -188,8 +188,6 @@ update_cluster() {
   echo "cluster_config = ${cc}"
   local -r tnn=$(yqx .num_nodes $cc)
   local -r c=$(cluster_data $cluster)
-  local -r ehn=$(external_hostname $cc)
-  local -r p=$(plan $cc)
   local -r np=$(network_profile $cc)
   local -r kp=$(kubernetes_profile $cc)
   local -r cp=$(compute_profile $cc)
@@ -201,8 +199,6 @@ update_cluster() {
       if [ ! -z "$cp" ];
       then
         echo update $cluster \
-             with external hostname $ehn \
-             using plan $p \
              and profile flags... \
              $np \
              $kp \
@@ -210,28 +206,24 @@ update_cluster() {
         run \
             tkgi \
             update-cluster $cluster \
-            --external-hostname $ehn \
-            --plan $p \
             --num-nodes $tnn \
             $np \
             $kp \
             $cp \
+            --non-interactive \
             --wait
       else
         echo updating $cluster \
-             with external hostname $ehn \
-             using plan $p \
              and profile flags... \
              $np \
              $kp
         run \
             tkgi \
             update-cluster $cluster \
-            --external-hostname $ehn \
-            --plan $p \
             --num-nodes $tnn \
             $np \
             $kp \
+            --non-interactive \
             --wait
       fi
   fi
